@@ -63,12 +63,12 @@ const Button = ({
       onPress={href ? handleLink : onPress}
       style={[
         tw.style(
-          `py-3 px-5 flex flex-row items-center justify-center relative rounded-lg ${
+          `py-3 px-5 flex flex-row items-center justify-center relative rounded-full ${
             full ? "w-full" : "self-start"
           }`,
           {
             "bg-primary py-3": mode === "contained",
-            "bg-transparent border border-primary ": mode === "outlined",
+            "bg-transparent border-2 border-primary ": mode === "outlined",
             "bg-transparent ": mode === "text",
             "opacity-50": !!disabled,
             "flex-grow": !!grow,
@@ -100,7 +100,7 @@ const Button = ({
                 "text-primary ": mode === "text",
                 "opacity-0": !!loading,
               },
-              `text-base font-500 mx-2 ${textColor}`
+              `text-base caption-regular mx-2 ${textColor}`
             ),
             textStyle,
           ]}
@@ -111,7 +111,7 @@ const Button = ({
       {!loading && iconRight ? <View style={tw`ml-4`}>{iconRight}</View> : null}
       {loading && (
         <View
-          style={tw`absolute flex flex-row justify-center items-center h-full w-full`}
+          style={tw`absolute flex flex-row items-center justify-center w-full h-full`}
         >
           <ActivityIndicator
             color={tw.color(mode === "contained" ? "white" : "primary")}

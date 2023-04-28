@@ -75,8 +75,8 @@ const Input = (
       ) : null}
       <View
         style={tw.style(
-          `bg-white rounded-xl flex flex-row items-center border-sub-title border ${
-            error ? "border-danger border" : ""
+          `bg-transparent  flex flex-row items-center border-primary border-b-2 ${
+            error ? "border-danger border-b-2" : ""
           }`
         )}
       >
@@ -84,18 +84,20 @@ const Input = (
         <TextInput
           secureTextEntry={props.secureTextEntry || hidePassword}
           ref={ref}
-          placeholderTextColor={tw.color("sub-title")}
+          placeholderTextColor={tw.color("primary/50")}
           {...props}
           style={[
             tw.style(
-              `p-3 rounded-[5px] font-500 flex-1 ${error ? "text-danger" : ""}`
+              `p-3 rounded-[5px] caption-regular flex-1 text-primary ${
+                error ? "text-danger" : ""
+              }`
             ),
             style,
           ]}
         />
 
         {right ? (
-          <View style={tw`mx-2 relative`}>{right}</View>
+          <View style={tw`relative mx-2`}>{right}</View>
         ) : type === "password" ? (
           <IconButton
             onPress={() => setHidePassword(!hidePassword)}

@@ -16,7 +16,7 @@ const handleRemoveToken = () => storage.delete("token");
 const uploadImage = (form: any) =>
   new Promise<any>((resolve, reject) => {
     api
-      .post("https://api.cloudinary.com/v1_1/dkit46bd0/image/upload", form)
+      .post("https://api.cloudinary.com/v1_1/{cloud name}/image/upload", form)
       .then((res) => {
         if (res.ok) {
           resolve(res.data);

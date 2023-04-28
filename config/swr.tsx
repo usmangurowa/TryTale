@@ -4,7 +4,6 @@ import { cacheProvider, fetcher } from "../utils/Swr";
 import { AppState } from "react-native";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import { showToast } from "../utils/toast";
-import { useStore } from "../context";
 import { Actions } from "../context/reducer";
 
 const SWR = ({
@@ -25,8 +24,10 @@ const SWR = ({
     const unsubscribe = NetInfo.addEventListener((state) => {
       if (state.isConnected && state.isInternetReachable) {
         setIsOnline(true);
+        dispatch({ type: Actions.ONLINE, payload: true });
       } else {
         setIsOnline(false);
+        dispatch({ type: Actions.ONLINE, payload: false });
         showToast("No internet connection", "", "error");
       }
       previousNetworkState.current = state;
@@ -40,13 +41,14 @@ const SWR = ({
   return (
     <SWRConfig
       value={{
-        provider: cacheProvider,
+        provider: cacheProvider, // optional, defaults to SWR's default
         fetcher: fetcher,
         revalidateOnFocus: true,
         revalidateOnReconnect: true,
         onErrorRetry(err, key, config, revalidate, revalidateOpts) {
           if (key === "/users/me" && err.status >= 401) {
-            handleLogout();
+            // TODO - change this to your protected route
+            handleLogout(); // logout user if token is expired
           }
         },
         isVisible() {
